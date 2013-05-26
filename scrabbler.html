@@ -1,0 +1,77 @@
+<head>
+  <title>Scrabbler</title>
+</head>
+
+<body>
+  <div id="outer">
+	  <img border="0" id="scrabbleImg" src="/scrabbler.png" alt="Scrabble" align="center" width="350" height="70">
+
+	{{> leaderboard}}	  
+  </div>
+</body>
+
+<template name="leaderboard">
+  <div class="leaderboard">
+    	{{#each players}}
+      	 	{{> player}}
+	{{/each}}
+</div>
+  {{#if game}}
+  	{{> started}}
+  {{/if}}
+  {{#if end}}
+  	{{>ending}}	
+  {{/if}}
+  {{#if not_started}}
+  	{{>notstarted}}
+  {{/if}}
+
+</template>
+
+<template name="notstarted">
+	<div class="none"><span id="ente">Bitte Spielernamen eingeben...</span></div>
+	<input type="text" id="new-player" placeholder="Name" />	
+	{{#if players_empty}}
+		<input type="button" id="start" class="start" disabled="true" value="Start" />
+		<input type="button" id="restart" class="restart" disabled="true" value="Spieler löschen" />
+	{{else}}
+		<input type="button" id="start" class="start" value="Start" />
+		<input type="button" id="restart" class="restart" value="Spieler löschen" />
+	{{/if}}
+</template>
+
+<template name="started">
+	<div class="details">
+		<input type="button" id="check" class="points" value="Wort nachschlagen" />
+		<span id="wordvalue" class="score"><input type="text" id="inc" placeholder="Gelegtes Wort" /><span id="eval" class="score">0</span></span>
+		<input type="button" id="double" class="points" value="Doppelter Wortwert" />
+		<input type="button" id="triple" class="points" value="Dreifacher Wortwert" />
+		<div>
+		<input type="button" id="add" class="points" value="Addiere Punkte" />
+		<input type="button" id="extra" class="points" value="Addiere Punkte + 50" />
+		<input type="button" id="pass" class="points" value="Passen" />
+		</div>
+	</div>
+	<div>
+	<input type="button" id="resetAll" class="resetAll" value="Punkte zurücksetzen" />
+	<input type="button" id="end" class="end" value="Spiel beenden" />
+	<input type="button" id="restart" class="restart" value="Spiel löschen" />
+	</div>
+</template>
+
+<template name="ending">
+	<div class="details">
+		<input type="text" id="dec" placeholder="Restliche Buchstaben" />
+		<span id="decev" class="score">0</span>
+		<input type="button" id="sub" class="points" value="Abziehen" />
+	</div>
+	<input type="button" id="restart" class="restart" value="Spiel löschen" />
+</template>
+
+<template name="player">
+  <div class="player {{selected}}">
+    <span class="name">{{name}}</span>
+    <span class="score">{{score}}</span>
+  </div>
+</template>
+
